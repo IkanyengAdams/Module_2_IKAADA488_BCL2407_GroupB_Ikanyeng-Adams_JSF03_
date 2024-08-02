@@ -1,5 +1,11 @@
 <template>
-
+  <div v-if="loading">Loading...</div>
+  <div v-else class="products-container">
+    <div v-for="product in products" :key="product.id" class="product-card">
+      <img :src="product.image" :alt="product.title" />
+     
+    </div>
+  </div>
 
 
 </template>
