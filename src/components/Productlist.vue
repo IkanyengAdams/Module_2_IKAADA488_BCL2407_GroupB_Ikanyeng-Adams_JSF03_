@@ -73,6 +73,7 @@ body {
 }
 
 .product-card {
+  margin-top: 18px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -91,5 +92,40 @@ body {
   border-radius: 8px;
 }
 
+.rating {
+  
+  margin-top: 0.5rem;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+}
 
+.rating svg.filled {
+  fill: #f0981d;
+}
+
+.rating svg.empty {
+  fill: #e0e0e0;
+}
+
+.view-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.view-button:hover {
+  background-color: #17cee7;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.25rem;
+  color: blue;
+}
 </style>
