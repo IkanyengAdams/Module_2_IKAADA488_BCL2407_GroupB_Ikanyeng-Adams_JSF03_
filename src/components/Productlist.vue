@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <div v-if="loading" class="loading">Loading...</div>
 
     
@@ -21,7 +22,7 @@
           </div>
         </div>
 
-      
+        
         <div class="sort-group">
           <label for="sort" class="sort-label">Sort by</label>
           <select id="sort" v-model="sortOption" @change="filterProducts" class="sort-select">
@@ -53,7 +54,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -71,11 +72,11 @@ export default {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://fakestoreapi.com/products');
-        const data = await response.json();
-        products.value = data;
+        const productsResponse = await fetch('https://fakestoreapi.com/products');
+        products.value = await productsResponse.json();
+        filteredProducts.value = products.value;
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching data:', error);
       } finally {
         loading.value = false;
       }
@@ -113,8 +114,6 @@ export default {
       filterProducts();
     };
 
-    
-
     const viewProduct = (productId) => {
       router.push(`/product/${productId}`);
     };
@@ -142,25 +141,69 @@ export default {
 </script>
 
 <style scoped>
+
 body {
   background-color: rgb(10, 17, 19);
   margin: 0;
   font-family: Arial, sans-serif;
 }
 
-.products-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+.container {
+  display: flex;
   gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  width: 100%;
+  max-width: 31.25rem;
+  position: relative;
+}
+
+
+
+
+
+.search-input {
+  width: 100%;
+  background-color: #f9fafb;
+  border-left: 0;
+}
+
+
+
+#search-svg {
+  size: 1px;
+}
+
+.sort-group {
+  display: flex;
+  align-items: center;
+}
+
+.sort-label {
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
 .product-card {
-  margin-top: 18px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin: 1rem;
   padding: 1rem;
+  width: 288px;
+  box-sizing: border-box;
   text-align: center;
   transition: transform 0.2s ease-in-out;
 }
@@ -175,8 +218,7 @@ body {
   border-radius: 8px;
 }
 
-.rating {
-  
+.product-card .rating {
   margin-top: 0.5rem;
   display: flex;
   height: 20px;
@@ -184,7 +226,7 @@ body {
 }
 
 .rating svg.filled {
-  fill: #f0981d;
+  fill: #fbc02d;
 }
 
 .rating svg.empty {
@@ -203,12 +245,42 @@ body {
 }
 
 .view-button:hover {
-  background-color: #17cee7;
+  background-color: #2563eb;
+}
+
+.no-items-message {
+  color: blue;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.25rem;
 }
 
 .loading {
-  text-align: center;
-  font-size: 1.25rem;
-  color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    width: calc(50% - 2rem);
+  }
+
+  .search-button {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    width: calc(100% - 2rem);
+  }
+
+  .search-button {
+    margin-left: 20px;
+  }
 }
 </style>
