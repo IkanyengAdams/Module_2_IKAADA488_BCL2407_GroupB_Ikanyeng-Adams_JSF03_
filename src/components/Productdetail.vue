@@ -1,4 +1,17 @@
 <template>
+ <div class="product-detail" v-if="!loading">
+    <button @click="goBack" class="back-button">Back to Products</button>
+    <div class="image-container">
+      <img :src="product.image" :alt="product.title" />
+    </div>
+    <div class="details-container">
+      <h1>{{ product.title }}</h1>
+      <p class="category">{{ product.category }}</p>
+      <p class="price">{{ '$' + product.price }}</p>
+      <p class="description">{{ product.description }}</p>
+    </div>
+  </div>
+  <div v-else class="loading">Loading...</div>
 
 </template>
 
