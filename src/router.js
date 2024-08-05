@@ -1,18 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Productlist from './components/Productlist.vue';
+import ProductDetail from './components/Productdetail.vue';
 
 const routes = [
-  {
-    path: '/',
-    name: 'Productlist',
-    component: Productlist
-  },
-  
+  { path: '/', component: Productlist },
+  { path: '/product/:id', component: ProductDetail },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 });
 
 export default router;
