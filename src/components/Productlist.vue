@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <div v-if="loading" class="loading">Loading...</div>
 
     
@@ -14,6 +13,24 @@
           </select>
 
           
+          <div class="relative w-full">
+            <input type="search" class="search-input" placeholder="Search products..." v-model="searchQuery" @input="searchProducts" />
+            <button type="submit" class="search-button">
+              <span class="sr-only">Search</span>
+            </button>
+          </div>
+        </div>
+
+      
+        <div class="sort-group">
+          <label for="sort" class="sort-label">Sort by</label>
+          <select id="sort" v-model="sortOption" @change="filterProducts" class="sort-select">
+            <option value="default">Default</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
 
       
       <div class="products-container">
@@ -92,7 +109,9 @@ export default {
       noItemsFound.value = filteredProducts.value.length === 0;
     };
 
-    
+    const searchProducts = () => {
+      filterProducts();
+    };
 
     
 
@@ -115,7 +134,7 @@ export default {
       sortOption,
       noItemsFound,
       filterProducts,
-      
+      searchProducts,
       viewProduct,
     };
   },
