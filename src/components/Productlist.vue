@@ -28,6 +28,7 @@ export default {
   name: 'Productlist',
   setup() {
     const products = ref([]);
+    
     const loading = ref(true);
     const router = useRouter();
 
@@ -42,6 +43,17 @@ export default {
         loading.value = false;
       }
     };
+
+    const fetchCategories = async () => {
+      try {
+        const categoriesResponse = await fetch('https://fakestoreapi.com/products/categories');
+        categories.value = await categoriesResponse.json();
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    
 
     const viewProduct = (productId) => {
       router.push(`/product/${productId}`);
