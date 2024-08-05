@@ -1,20 +1,35 @@
 <template>
-  <div class="productlist">
-    <div v-if="loading" class="loading">
-      Loading...
-    </div>
-    <div v-else class="products-container">
-      <div v-for="product in products" :key="product.id" class="product-card">
-        <img :src="product.image" :alt="product.title" />
-        <h2>{{ product.title }}</h2>
-        <p>{{ '$' + product.price }}</p>
-        <p>{{ product.category }}</p>
-        <div class="rating">
-          <svg v-for="i in 5" :key="i" :class="i <= Math.round(product.rating.rate) ? 'filled' : 'empty'" viewBox="0 0 24 24">
-            <path d="M12 .587l3.668 7.571 8.332 1.151-6.063 5.852 1.428 8.287L12 18.897l-7.365 3.851 1.428-8.287-6.063-5.852 8.332-1.151z"/>
-          </svg>
+  <div>
+    
+    <div v-if="loading" class="loading">Loading...</div>
+
+    
+    <div v-else>
+      <div class="container">
+        
+        <div class="form-group">
+          <select v-model="selectedCategory" @change="filterProducts" class="category-select">
+            <option value="">All Categories</option>
+            <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+          </select>
+
+          
+
+      
+      <div class="products-container">
+        <p v-if="filteredProducts.length === 0" class="no-items-message">No items found</p>
+        <div v-else class="product-card" v-for="product in filteredProducts" :key="product.id">
+          <img :src="product.image" :alt="product.title" />
+          <h2>{{ product.title }}</h2>
+          <p>{{ '$' + product.price }}</p>
+          <p>{{ product.category }}</p>
+          <div class="rating">
+            <svg v-for="i in 5" :key="i" :class="i <= Math.round(product.rating.rate) ? 'filled' : 'empty'" viewBox="0 0 24 24">
+              <path d="M12 .587l3.668 7.571 8.332 1.151-6.063 5.852 1.428 8.287L12 18.897l-7.365 3.851 1.428-8.287-6.063-5.852 8.332-1.151z"/>
+            </svg>
+          </div>
+          <button class="view-button" @click="viewProduct(product.id)">View Product</button>
         </div>
-        <button @click="viewProduct(product.id)" class="view-button">View Product</button>
       </div>
     </div>
   </div>
@@ -25,11 +40,16 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
-  name: 'Productlist',
+  name: 'ProductList',
   setup() {
     const products = ref([]);
-    
+    const filteredProducts = ref([]);
     const loading = ref(true);
+    const categories = ref([]);
+    const selectedCategory = ref('');
+    const searchQuery = ref('');
+    const sortOption = ref('default');
+    const noItemsFound = ref(false);
     const router = useRouter();
 
     const fetchProducts = async () => {
@@ -53,17 +73,49 @@ export default {
       }
     };
 
+    const filterProducts = () => {
+      filteredProducts.value = products.value
+        .filter(product =>
+          (!selectedCategory.value || product.category === selectedCategory.value) &&
+          (!searchQuery.value || product.title.toLowerCase().includes(searchQuery.value.toLowerCase()))
+        )
+        .sort((a, b) => {
+          if (sortOption.value === 'low') {
+            return a.price - b.price;
+          } else if (sortOption.value === 'high') {
+            return b.price - a.price;
+          } else {
+            return 0;
+          }
+        });
+
+      noItemsFound.value = filteredProducts.value.length === 0;
+    };
+
+    
+
     
 
     const viewProduct = (productId) => {
       router.push(`/product/${productId}`);
     };
 
-    onMounted(fetchProducts);
+    onMounted(() => {
+      fetchProducts();
+      fetchCategories();
+    });
 
     return {
       products,
+      filteredProducts,
       loading,
+      categories,
+      selectedCategory,
+      searchQuery,
+      sortOption,
+      noItemsFound,
+      filterProducts,
+      
       viewProduct,
     };
   },
