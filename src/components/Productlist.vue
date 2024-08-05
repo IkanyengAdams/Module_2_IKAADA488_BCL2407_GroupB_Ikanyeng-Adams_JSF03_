@@ -1,19 +1,13 @@
 <template>
   <div>
-    
     <div v-if="loading" class="loading">Loading...</div>
-
-    
     <div v-else>
       <div class="container">
-        
         <div class="form-group">
           <select v-model="selectedCategory" @change="filterProducts" class="category-select">
             <option value="">All Categories</option>
             <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
           </select>
-
-          
           <div class="relative w-full">
             <input type="search" class="search-input" placeholder="Search products..." v-model="searchQuery" @input="searchProducts" />
             <button type="submit" class="search-button">
@@ -21,8 +15,6 @@
             </button>
           </div>
         </div>
-
-        
         <div class="sort-group">
           <label for="sort" class="sort-label">Sort by</label>
           <select id="sort" v-model="sortOption" @change="filterProducts" class="sort-select">
@@ -32,8 +24,6 @@
           </select>
         </div>
       </div>
-
-      
       <div class="products-container">
         <p v-if="filteredProducts.length === 0" class="no-items-message">No items found</p>
         <div v-else class="product-card" v-for="product in filteredProducts" :key="product.id">
@@ -46,12 +36,15 @@
               <path d="M12 .587l3.668 7.571 8.332 1.151-6.063 5.852 1.428 8.287L12 18.897l-7.365 3.851 1.428-8.287-6.063-5.852 8.332-1.151z"/>
             </svg>
           </div>
-          <button class="view-button" @click="viewProduct(product.id)">View Product</button>
+          <button class="view-button" @click="viewProduct(product.id)">
+            <i class="fa fa-eye"></i> View Product
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import { ref, onMounted, computed } from 'vue';
@@ -164,9 +157,22 @@ body {
   position: relative;
 }
 
+.category-select,
+.search-input,
+.search-button,
+.sort-select {
+  padding: 0.625rem;
+  font-size: 0.875rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+}
 
-
-
+.category-select {
+  flex-shrink: 0;
+  z-index: 10;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem 0 0 0.375rem;
+}
 
 .search-input {
   width: 100%;
@@ -174,6 +180,19 @@ body {
   border-left: 0;
 }
 
+
+.search-button {
+  position: absolute;
+  margin-right: 100px;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 57px;
+  background-color: #3b82f6;
+  color: white;
+  border-left: 0;
+  border-radius: 0 0.375rem 0.375rem 0;
+}
 
 
 #search-svg {
@@ -193,7 +212,7 @@ body {
 .products-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .product-card {
@@ -202,7 +221,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   margin: 1rem;
   padding: 1rem;
-  width: 288px;
+  width: 22%;
   box-sizing: border-box;
   text-align: center;
   transition: transform 0.2s ease-in-out;
@@ -211,6 +230,31 @@ body {
 .product-card:hover {
   transform: scale(1.05);
 }
+
+@media (max-width: 1200px) {
+  .product-card {
+    width: 30%;
+  }
+}
+
+@media (max-width: 992px) {
+  .product-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    width: calc(50% - 2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    width: calc(100% - 2rem);
+  }
+}
+
 
 .product-card img {
   max-width: 100%;
