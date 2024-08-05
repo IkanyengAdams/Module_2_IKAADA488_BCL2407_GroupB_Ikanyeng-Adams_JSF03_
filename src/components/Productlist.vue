@@ -136,7 +136,7 @@ export default {
 <style scoped>
 
 body {
-  background-color: rgb(10, 17, 19);
+ background-color: lightblue;
   margin: 0;
   font-family: Arial, sans-serif;
 }
