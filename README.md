@@ -25,8 +25,12 @@ Clone the repository:
 - git clone https://github.com/yourusername/vue-ecommerce.git
   cd vue-ecommerce
 
+  ![Screenshot 2024-08-06 160300](https://github.com/user-attachments/assets/a240af83-8e06-4134-9ccc-c994aa0e39ff)
+
 Install dependencies:
 - npm install
+- 
+![Screenshot 2024-08-06 160346](https://github.com/user-attachments/assets/a81dac16-2555-4b82-805b-f5ef61ffd8f1)
 
 Run the development server:
 - npm run serve
