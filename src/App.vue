@@ -6,12 +6,26 @@
 </template>
 
 <script>
+import { ref, provide } from 'vue';
 import Navbar from './components/Navbar.vue';
 
 export default {
   name: 'App',
   components: {
     Navbar,
+  },
+  setup() {
+    const selectedCategory = ref('');
+    const searchQuery = ref('');
+    const sortOption = ref('default');
+
+    provide('filters', {
+      selectedCategory,
+      searchQuery,
+      sortOption,
+    });
+
+    return {};
   },
 };
 </script>

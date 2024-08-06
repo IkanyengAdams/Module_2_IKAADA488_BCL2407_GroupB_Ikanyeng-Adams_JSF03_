@@ -47,19 +47,17 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
   name: 'ProductList',
   setup() {
+    const { selectedCategory, searchQuery, sortOption } = inject('filters');
     const products = ref([]);
     const filteredProducts = ref([]);
     const loading = ref(true);
     const categories = ref([]);
-    const selectedCategory = ref('');
-    const searchQuery = ref('');
-    const sortOption = ref('default');
     const noItemsFound = ref(false);
     const router = useRouter();
 
@@ -67,7 +65,7 @@ export default {
       try {
         const productsResponse = await fetch('https://fakestoreapi.com/products');
         products.value = await productsResponse.json();
-        filteredProducts.value = products.value;
+        filterProducts();
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -132,6 +130,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 body {

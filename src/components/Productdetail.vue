@@ -4,7 +4,7 @@
       <img :src="product.image" :alt="product.title" class="product-image" />
     </div>
     <div class="details-container">
-      <h1>{{ product.title }}</h1>
+      <h1 class="title">{{ product.title }}</h1>
       <p class="category">{{ product.category }}</p>
       <p class="price">{{ '$' + product.price }}</p>
       <p class="description">{{ product.description }}</p>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 export default {
@@ -33,6 +33,7 @@ export default {
     const router = useRouter();
     const product = ref({});
     const loading = ref(true);
+    const { selectedCategory, searchQuery, sortOption } = inject('filters');
 
     const fetchProduct = async () => {
       try {
@@ -55,10 +56,14 @@ export default {
       product,
       loading,
       goBack,
+      selectedCategory,
+      searchQuery,
+      sortOption,
     };
   },
 };
 </script>
+
 
 <style scoped>
 .product-detail {
@@ -75,12 +80,16 @@ export default {
   margin: auto;
 }
 
+.title{
+  font-size: 30px;
+}
+
 .image-container {
   text-align: center;
 }
 
 .product-image {
-  max-width: 100%;
+  max-width: 80%;
   height: auto;
   border-radius: 8px;
   width: 200px;
