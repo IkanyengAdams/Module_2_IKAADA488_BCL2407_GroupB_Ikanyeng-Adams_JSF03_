@@ -236,11 +236,19 @@ body {
   .product-card {
     width: calc(33.33% - 2rem);
   }
+
+  .search-button{
+    margin-right: 0px;
+  }
 }
 
 @media (max-width: 992px) {
   .product-card {
     width: calc(50% - 2rem);
+  }
+
+  .search-button{
+    margin-right: 0px;
   }
 }
 
@@ -248,11 +256,19 @@ body {
   .product-card {
     width: calc(50% - 2rem);
   }
+
+  .search-button{
+    margin-right: 120px;
+  }
 }
 
 @media (max-width: 480px) {
   .product-card {
     width: calc(100% - 2rem);
+  }
+
+  .search-button{
+    margin-right: 0px;
   }
 }
 
