@@ -61,6 +61,13 @@ export default {
     const noItemsFound = ref(false);
     const router = useRouter();
 
+     /**
+     * Fetches the list of products from the API and filters them.
+     * @async
+     * @function fetchProducts
+     * @returns {Promise<void>}
+     */
+
     const fetchProducts = async () => {
       try {
         const productsResponse = await fetch('https://fakestoreapi.com/products');
@@ -73,6 +80,13 @@ export default {
       }
     };
 
+     /**
+     * Fetches the list of categories from the API.
+     * @async
+     * @function fetchCategories
+     * @returns {Promise<void>}
+     */
+
     const fetchCategories = async () => {
       try {
         const categoriesResponse = await fetch('https://fakestoreapi.com/products/categories');
@@ -81,6 +95,11 @@ export default {
         console.error('Error fetching categories:', error);
       }
     };
+
+    /**
+     * Filters the products based on the selected category, search query, and sort option.
+     * @function filterProducts
+     */
 
     const filterProducts = () => {
       filteredProducts.value = products.value
@@ -101,14 +120,26 @@ export default {
       noItemsFound.value = filteredProducts.value.length === 0;
     };
 
+    /**
+     * Searches the products based on the search query.
+     * @function searchProducts
+     */
+
     const searchProducts = () => {
       filterProducts();
     };
+
+    /**
+     * Navigates to the product details page.
+     * @function viewProduct
+     * @param {number} productId - The ID of the product to view.
+     */
 
     const viewProduct = (productId) => {
       router.push(`/product/${productId}`);
     };
 
+    // Lifecycle hook to fetch products and categories on component mount.
     onMounted(() => {
       fetchProducts();
       fetchCategories();
@@ -212,7 +243,7 @@ body {
 .products-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 0 -1rem;
 }
 
@@ -237,7 +268,7 @@ body {
     width: calc(33.33% - 2rem);
   }
 
-  .search-button{
+  .search-button {
     margin-right: 0px;
   }
 }
@@ -247,7 +278,7 @@ body {
     width: calc(50% - 2rem);
   }
 
-  .search-button{
+  .search-button {
     margin-right: 0px;
   }
 }
@@ -257,7 +288,7 @@ body {
     width: calc(50% - 2rem);
   }
 
-  .search-button{
+  .search-button {
     margin-right: 120px;
   }
 }
@@ -267,7 +298,7 @@ body {
     width: calc(100% - 2rem);
   }
 
-  .search-button{
+  .search-button {
     margin-right: 0px;
   }
 }

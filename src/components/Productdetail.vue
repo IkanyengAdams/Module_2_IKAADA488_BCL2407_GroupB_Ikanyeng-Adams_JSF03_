@@ -35,6 +35,13 @@ export default {
     const loading = ref(true);
     const { selectedCategory, searchQuery, sortOption } = inject('filters');
 
+     /**
+     * Fetches the product details from the API based on the route parameter.
+     * @async
+     * @function fetchProduct
+     * @returns {Promise<void>}
+     */
+
     const fetchProduct = async () => {
       try {
         const response = await fetch(`https://fakestoreapi.com/products/${route.params.id}`);
@@ -46,10 +53,16 @@ export default {
       }
     };
 
+    /**
+     * Navigates back to the main product list.
+     * @function goBack
+     */
+
     const goBack = () => {
       router.push('/');
     };
 
+     // Lifecycle hook to fetch product details on component mount.
     onMounted(fetchProduct);
 
     return {

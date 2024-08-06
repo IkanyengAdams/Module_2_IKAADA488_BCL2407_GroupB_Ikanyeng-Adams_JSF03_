@@ -23,7 +23,7 @@
         &#9776;
       </button>
     </nav>
-    <div :class="['sidebar', { open: openSidebar }]">
+    <div :class="['sidebar', { open: openSidebar }]" v-if="isMobile">
       <div class="sidebar-items">
         <span class="close-icon" @click="toggleSidebar">&times;</span>
         <span class="sidebar-item" @click="goToWishlistAndClose">
@@ -48,40 +48,112 @@ export default {
   data() {
     return {
       openSidebar: false,
+      isMobile: window.innerWidth <= 768,
     };
   },
   methods: {
+
+     /**
+     * Toggles the visibility of the sidebar.
+     * @function toggleSidebar
+     */
+
     toggleSidebar() {
       this.openSidebar = !this.openSidebar;
     },
+
+    /**
+     * Navigates to the product list page.
+     * @function goToProductList
+     */
+
     goToProductList() {
       this.$router.push('/');
       this.closeSidebar();
     },
+
+     /**
+     * Navigates to the wishlist page.
+     * @function goToWishlist
+     */
+
     goToWishlist() {
       this.$router.push('/wishlist');
     },
+
+    /**
+     * Navigates to the cart page.
+     * @function goToCart
+     */
+
     goToCart() {
       this.$router.push('/cart');
     },
+
+    /**
+     * Navigates to the login page.
+     * @function goToLogin
+     */
+
     goToLogin() {
       this.$router.push('/login');
     },
+
+    /**
+     * Navigates to the wishlist page and closes the sidebar.
+     * @function goToWishlistAndClose
+     */
+
     goToWishlistAndClose() {
       this.goToWishlist();
       this.closeSidebar();
     },
+
+    /**
+     * Navigates to the cart page and closes the sidebar.
+     * @function goToCartAndClose
+     */
     goToCartAndClose() {
       this.goToCart();
       this.closeSidebar();
     },
+
+    /**
+     * Navigates to the login page and closes the sidebar.
+     * @function goToLoginAndClose
+     */
+    
     goToLoginAndClose() {
       this.goToLogin();
       this.closeSidebar();
     },
+
+    /**
+     * Closes the sidebar.
+     * @function closeSidebar
+     */
+
     closeSidebar() {
       this.openSidebar = false;
+    },
+
+    /**
+     * Handles window resize event to toggle mobile view.
+     * @function handleResize
+     */
+
+    handleResize() {
+      this.isMobile = window.innerWidth <= 768;
+      if (!this.isMobile) {
+        this.closeSidebar();
+      }
     }
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize);
   }
 };
 </script>
@@ -112,6 +184,7 @@ export default {
 }
 
 .navbar-items {
+  margin-right: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
