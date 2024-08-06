@@ -2,7 +2,7 @@
   <header>
     <nav class="navbar">
       <div>
-        
+        <img src="/public/android-chrome-192x192.png" alt="logo-icon" style="height: 32px;">
         <span class="heading" @click="goToProductList">SwiftCart</span>
       </div>
       <div class="navbar-items">
