@@ -2,7 +2,7 @@
   <header>
     <nav class="navbar">
       <div>
-        <img src="/public/android-chrome-192x192.png" alt="logo-icon" style="height: 32px;">
+        <img src="/public/android-chrome-192x192.png" alt="logo-icon" class="logo-icon">
         <span class="heading" @click="goToProductList">SwiftCart</span>
       </div>
       <div class="navbar-items">
@@ -26,7 +26,6 @@
     <div :class="['sidebar', { open: openSidebar }]">
       <div class="sidebar-items">
         <span class="close-icon" @click="toggleSidebar">&times;</span>
-        <br>
         <span class="sidebar-item" @click="goToWishlistAndClose">
           <i class="fas fa-heart"></i>
           <strong>Wishlist</strong>
@@ -90,8 +89,7 @@ export default {
 <style scoped>
 .navbar {
   background-color: blue;
-  padding: 0.1px;
-  height: 70px;
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -103,33 +101,40 @@ export default {
   z-index: 1000;
 }
 
-.heading {
-  font-size: 30px;
-  font-weight: bold;
-  cursor: pointer;
+.logo-icon {
+  height: 32px;
 }
 
-.img {
-  margin-right: 10px;
+.heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .navbar-items {
   display: flex;
   flex-direction: row;
-  padding: 1rem;
-  color: white;
+  align-items: center;
+  gap: 1rem;
 }
 
 .navbar-item {
-  padding: 0.5rem;
-  margin: 0.5rem 0;
   cursor: pointer;
   display: flex;
   align-items: center;
 }
 
 .navbar-item i {
-  margin-right: 5px;
+  margin-right: 0.5rem;
+}
+
+.menu-icon {
+  display: none;
+  background-color: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
 }
 
 .sidebar {
@@ -138,13 +143,11 @@ export default {
   left: 0;
   bottom: 0;
   width: 220px;
-  height: 100vh;
   background-color: blue;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   transform: translateX(-100%);
   transition: transform 0.8s ease-out;
   z-index: 999;
-  padding-top: 70px; 
+  padding-top: 70px;
 }
 
 .sidebar.open {
@@ -154,50 +157,33 @@ export default {
 .sidebar-items {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   padding: 1rem;
   color: white;
 }
 
 .sidebar-item {
-  padding: 0.5rem;
-  margin: 0.5rem 0;
   cursor: pointer;
   display: flex;
   align-items: center;
 }
 
 .sidebar-item i {
-  margin-right: 5px;
-}
-
-.menu-icon {
-  display: none;
+  margin-right: 0.5rem;
 }
 
 .close-icon {
-  font-size: 24px;
+  align-self: flex-end;
   cursor: pointer;
+  font-size: 1.5rem;
 }
 
 @media (max-width: 768px) {
   .menu-icon {
     display: block;
-    margin-left: 2rem;
   }
   .navbar-items {
     display: none;
-  }
-  .sidebar {
-    display: block;
-  }
-}
-
-@media (min-width: 769px) {
-  .sidebar {
-    display: none;
-  }
-  .navbar-items {
-    display: flex;
   }
 }
 </style>

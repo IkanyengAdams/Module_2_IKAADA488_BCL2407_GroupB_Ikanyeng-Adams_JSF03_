@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Wishlist page</h1>
+    <h1>Login page</h1>
     <button @click="goToProductList">Back to Product List</button>
   </div>
 </template>
@@ -17,6 +17,6 @@ export default {
 
 <style scoped>
 button{
-  background-color: #4c61af;
+  background: #325cda;
 }
 </style>

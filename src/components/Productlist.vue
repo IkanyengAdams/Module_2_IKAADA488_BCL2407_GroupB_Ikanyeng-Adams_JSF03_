@@ -131,7 +131,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 body {
   background-color: lightblue;
@@ -214,6 +213,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin: 0 -1rem;
 }
 
 .product-card {
@@ -222,7 +222,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   margin: 1rem;
   padding: 1rem;
-  width: 22%;
+  width: calc(25% - 2rem);
   box-sizing: border-box;
   text-align: center;
   transition: transform 0.2s ease-in-out;
@@ -234,13 +234,13 @@ body {
 
 @media (max-width: 1200px) {
   .product-card {
-    width: 30%;
+    width: calc(33.33% - 2rem);
   }
 }
 
 @media (max-width: 992px) {
   .product-card {
-    width: 45%;
+    width: calc(50% - 2rem);
   }
 }
 
@@ -305,26 +305,6 @@ body {
   align-items: center;
   height: 100vh;
   font-size: 1.5rem;
-  color: #555;
-}
-
-@media (max-width: 768px) {
-  .product-card {
-    width: calc(50% - 2rem);
-  }
-
-  .search-button {
-    width: 40px;
-  }
-}
-
-@media (max-width: 480px) {
-  .product-card {
-    width: calc(100% - 2rem);
-  }
-
-  .search-button {
-    width: 40px;
-  }
+  color: blue;
 }
 </style>
