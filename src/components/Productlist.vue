@@ -11,6 +11,7 @@
           <div class="relative w-full">
             <input type="search" class="search-input" placeholder="Search products..." v-model="searchQuery" @input="searchProducts" />
             <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
               <span class="sr-only">Search</span>
             </button>
           </div>
@@ -44,7 +45,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import { ref, onMounted, computed } from 'vue';
@@ -134,9 +134,8 @@ export default {
 </script>
 
 <style scoped>
-
 body {
- background-color: lightblue;
+  background-color: lightblue;
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -178,25 +177,28 @@ body {
   width: 100%;
   background-color: #f9fafb;
   border-left: 0;
+  border-radius: 0.375rem 0 0 0.375rem;
 }
-
 
 .search-button {
   position: absolute;
-  margin-right: 100px;
+  margin-right: 115px;
   top: 0;
   right: 0;
   height: 100%;
-  width: 57px;
+  width: 40px;
   background-color: #3b82f6;
   color: white;
   border-left: 0;
   border-radius: 0 0.375rem 0.375rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-
-#search-svg {
-  size: 1px;
+.search-button i {
+  font-size: 1rem;
 }
 
 .sort-group {
@@ -254,7 +256,6 @@ body {
     width: calc(100% - 2rem);
   }
 }
-
 
 .product-card img {
   max-width: 100%;
@@ -314,7 +315,7 @@ body {
   }
 
   .search-button {
-    margin-left: 20px;
+    width: 40px;
   }
 }
 
@@ -324,7 +325,7 @@ body {
   }
 
   .search-button {
-    margin-left: 20px;
+    width: 40px;
   }
 }
 </style>

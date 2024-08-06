@@ -1,8 +1,7 @@
 <template>
   <div class="product-detail" v-if="!loading">
-    <button @click="goBack" class="back-button">Back to Products</button>
     <div class="image-container">
-      <img :src="product.image" :alt="product.title" />
+      <img :src="product.image" :alt="product.title" class="product-image" />
     </div>
     <div class="details-container">
       <h1>{{ product.title }}</h1>
@@ -17,6 +16,7 @@
         </div>
         <p>{{ product.rating.count }} reviews</p>
       </div>
+      <button @click="goBack" class="back-button">Back to Products</button>
     </div>
   </div>
   <div v-else class="loading">Loading...</div>
@@ -63,26 +63,35 @@ export default {
 <style scoped>
 .product-detail {
   display: flex;
-  gap: 2rem;
-  margin: 2rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
   background-color: #f0f4f8;
-  padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: hidden;
+  max-width: 600px;
+  margin: auto;
 }
 
-.image-container img {
+.image-container {
+  text-align: center;
+}
+
+.product-image {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  width: 300px;
+  width: 200px;
 }
 
 .details-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  flex-grow: 1;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
 }
 
 .category {
@@ -91,19 +100,18 @@ export default {
 }
 
 .price {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #3b82f6;
 }
 
 .description {
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: #333;
 }
 
 .rating {
-  height: 8rem;
-  width: 8rem;
-  
+height: 8rem;
+width: 8rem;
 }
 
 .rating-stars {
@@ -119,7 +127,7 @@ export default {
 }
 
 .back-button {
-  align-self: flex-start;
+  margin-top: 0.5rem;
   padding: 0.5rem 1rem;
   background-color: #3b82f6;
   color: white;
@@ -127,7 +135,6 @@ export default {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-  margin-bottom: 1rem;
 }
 
 .back-button:hover {
