@@ -14,9 +14,33 @@ export default {
   components: {
     Navbar,
   },
+
+   /**
+   * Sets up reactive state and provides it to the rest of the application.
+   * @returns {Object} The setup context.
+   */
+
   setup() {
+
+     /**
+     * The currently selected category for filtering products.
+     * @type {import('vue').Ref<string>}
+     */
+
     const selectedCategory = ref('');
+
+    /**
+     * The current search query.
+     * @type {import('vue').Ref<string>}
+     */
+
     const searchQuery = ref('');
+
+    /**
+     * The selected sorting option.
+     * @type {import('vue').Ref<string>}
+     */
+    
     const sortOption = ref('default');
 
     provide('filters', {
